@@ -117,8 +117,8 @@ def run(filename):
     for i in range(num_frames):
 
         if num_frames > 1:
-            for k in frames[i].keys():
-                symbols[k] = frames[i][k]
+            for x in frames[i]:
+                symbols[x][i] = frames[i][x]
 
         tmp = new_matrix()
         ident( tmp )
