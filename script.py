@@ -71,10 +71,11 @@ def second_pass( commands, num_frames ):
             endF = int(args[1])
             startV = float(args[2])
             endV = float(args[3])
+            adj = float(args[2])
             delta = (endV - startV) / (endF - startF)
             for i in range(startF, endF):
-                frames[i][command['knob']] = startV
-                startV += delta
+                frames[i][command['knob']] = adj
+                adj += delta
 
     return frames
 
@@ -134,9 +135,13 @@ def run(filename):
 
         for command in commands:
             print(command)
+            print(symbols)
             c = command['op']
             args = command['args']
             knob_value = 1
+
+            if 'knob' in command and command['knob'] != None:
+                knob_value = symbols[command['knob']][1]
 
             if c == 'box':
                 if command['constants']:
