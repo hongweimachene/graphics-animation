@@ -71,11 +71,10 @@ def second_pass( commands, num_frames ):
             endF = int(args[1])
             startV = float(args[2])
             endV = float(args[3])
-            adj = float(args[2])
             delta = (endV - startV) / (endF - startF)
-            for i in range(startF, endF):
-                frames[i][command['knob']] = adj
-                adj += delta
+            for i in range(num_frames):
+                frames[i][command['knob']] = startV
+                startV += delta
 
     return frames
 
@@ -116,10 +115,9 @@ def run(filename):
     frames = second_pass(commands, num_frames)
 
     for i in range(num_frames):
-        print(frames)
         if num_frames > 1:
-            for k in frames[i].keys():
-                symbols[k] = frames[i][k]
+            for knob in frames[i]:
+                symbols[knob][1] = frames[i][knob]
 
         tmp = new_matrix()
         ident( tmp )
@@ -141,7 +139,7 @@ def run(filename):
             knob_value = 1
 
             if 'knob' in command and command['knob'] != None:
-                knob_value = symbols[command['knob']]
+                knob_value = symbols[command['knob']][1]
 
             if c == 'box':
                 if command['constants']:
