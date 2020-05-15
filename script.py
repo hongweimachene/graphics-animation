@@ -115,6 +115,9 @@ def run(filename):
     frames = second_pass(commands, num_frames)
 
     for i in range(num_frames):
+	print('FRAMES===========================================')
+	print(frames[i])
+	print('==================================================')
         if num_frames > 1:
             for knob in frames[i]:
                 symbols[knob][1] = frames[i][knob]
@@ -141,9 +144,8 @@ def run(filename):
             if 'knob' in command and command['knob'] != None:
                 knob_value = symbols[command['knob']][1]
 
-            if command['op'] in ['move', 'scale']:
-                for i in range(len(args)):
-                    args[i] = args[i] * knob_value
+	    if command['op'] in ['move', 'scale']:
+		args = [arg * knob_value for arg in args]
 
             if c == 'box':
                 if command['constants']:
@@ -190,7 +192,7 @@ def run(filename):
                 stack[-1] = [x[:] for x in tmp]
                 tmp = []
             elif c == 'rotate':
-                theta = args[1] * (math.pi/180)
+                theta = args[1] * (math.pi/180) * knob_value
                 if args[0] == 'x':
                     tmp = make_rotX(theta)
                 elif args[0] == 'y':
