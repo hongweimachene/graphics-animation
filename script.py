@@ -141,6 +141,10 @@ def run(filename):
             if 'knob' in command and command['knob'] != None:
                 knob_value = symbols[command['knob']][1]
 
+            if command['op'] in ['move', 'scale']:
+                for i in range(len(args)):
+                    args[i] = args[i] * knob_value
+
             if c == 'box':
                 if command['constants']:
                     reflect = command['constants']
