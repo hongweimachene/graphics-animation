@@ -116,7 +116,7 @@ def run(filename):
     frames = second_pass(commands, num_frames)
 
     for i in range(num_frames):
-
+        print(frames)
         if num_frames > 1:
             for k in frames[i].keys():
                 symbols[k] = frames[i][k]
@@ -141,7 +141,7 @@ def run(filename):
             knob_value = 1
 
             if 'knob' in command and command['knob'] != None:
-                knob_value = symbols[command['knob']][1]
+                knob_value = symbols[command['knob']]
 
             if c == 'box':
                 if command['constants']:
